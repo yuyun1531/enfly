@@ -1,3 +1,6 @@
+import 'package:enfly/pages/chat.dart';
+import 'package:enfly/pages/home.dart';
+import 'package:enfly/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
@@ -50,11 +53,11 @@ class _MyAppState extends State<NavBar> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return const Center(child: Text('我的信息页面'));
+        return const Profile();
       case 1:
-        return const Center(child: Text('首页页面'));
+        return const Home();
       case 2:
-        return const Center(child: Text('聊天页面'));
+        return const Chat();
       default:
         return const Center(child: Text('页面未找到'));
     }

@@ -1,3 +1,4 @@
+import 'package:enfly/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/chat.dart';
 
@@ -64,5 +65,5 @@ class ChatBubble extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(HomePage());
 }
