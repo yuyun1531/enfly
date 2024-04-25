@@ -177,8 +177,7 @@ class _LoginFormState extends State<LoginForm> {
                   TextSpan(
                     text: TIM_t("请您点击"),
                   ),
-                  webViewLink("《用户协议》",
-                      'https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html'),
+                  webViewLink("《用户协议》", ''),
                   TextSpan(
                     text: TIM_t(", "),
                   ),
