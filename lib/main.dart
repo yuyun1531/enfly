@@ -14,7 +14,7 @@ class VoiceInputChatPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ChatBubble(text: '你好，这是一个语音输入的聊天页面', isUserA: true),
+                ChatBubble(text: '你好，这是一个语音输入的聊天test', isUserA: true),
                 ChatBubble(text: '你好，是的，只能通过语音输入', isUserA: false),
               ],
             ),
