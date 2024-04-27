@@ -1,4 +1,5 @@
 import 'package:enfly/pages/chat.dart';
+import 'package:enfly/pages/login.dart';
 import 'package:enfly/provider/enfly_page.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class HomePageState extends State<HomePage> {
           //centerTitle: true,
           backgroundColor: Colors.blue,
         ),
-        body: _changePage(currentIndex),
+        body: LoginPage(), //_changePage(currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(

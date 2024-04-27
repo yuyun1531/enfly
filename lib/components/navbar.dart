@@ -39,7 +39,7 @@ class _MyAppState extends State<NavBar> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat),
-              label: '聊天页面',
+              label: 'GAGA页面',
             ),
           ],
           currentIndex: _selectedIndex,

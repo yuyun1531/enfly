@@ -1,6 +1,17 @@
+import 'dart:io';
+
+import 'package:enfly/provider/theme.dart';
+import 'package:enfly/routs.dart';
+import 'package:enfly/theme/color.dart';
 import 'package:enfly/utils/commonUtils.dart';
+import 'package:enfly/utils/toast.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -43,7 +54,7 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    //final theme = Provider.of<DefaultThemeData>(context).theme;
+    final theme = Provider.of<DefaultThemeData>(context).theme;
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -83,14 +94,14 @@ class AppLogo extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        TIM_t("腾讯云即时通信IM"),
+                        "腾讯云即时通信IM",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: CommonUtils.adaptFontSize(58),
                         ),
                       ),
                       Text(
-                        TIM_t("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
+                        "欢迎使用本 APP 体验腾讯云 IM 产品服务",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: CommonUtils.adaptFontSize(26),
@@ -110,40 +121,36 @@ class AppLogo extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  final Function? initIMSDK;
-  const LoginForm({Key? key, required this.initIMSDK}) : super(key: key);
+  const LoginForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final CoreServicesImpl coreInstance = TIMUIKitCore.getInstance();
-
   String userID = '';
 
   @override
   initState() {
     super.initState();
-    checkFirstEnter();
-    if (widget.initIMSDK != null) {
-      widget.initIMSDK!();
-    }
+    //checkFirstEnter();
   }
 
   TextSpan webViewLink(String title, String url) {
     return TextSpan(
-      text: TIM_t(title),
+      text: title,
       style: const TextStyle(
         color: Color.fromRGBO(0, 110, 253, 1),
       ),
       recognizer: TapGestureRecognizer()
         ..onTap = () {
-          Navigator.push(
+          /* Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      PrivacyDocument(title: title, url: url)));
+                      PrivacyDocument(title: title, url: url))); */
         },
     );
   }
@@ -168,33 +175,18 @@ class _LoginFormState extends State<LoginForm> {
                     fontSize: 14, color: Colors.black, height: 2.0),
                 children: [
                   TextSpan(
-                    text: TIM_t(
-                        "欢迎使用腾讯云即时通信 IM，为保护您的个人信息安全，我们更新了《隐私政策》，主要完善了收集用户信息的具体内容和目的、增加了第三方SDK使用等方面的内容。"),
+                    text: "欢迎使用腾讯云内容。",
                   ),
                   const TextSpan(
                     text: "\n",
                   ),
                   TextSpan(
-                    text: TIM_t("请您点击"),
+                    text: "请您点击",
                   ),
                   webViewLink("《用户协议》", ''),
                   TextSpan(
-                    text: TIM_t(", "),
+                    text: ", ",
                   ),
-                  webViewLink("《隐私协议》",
-                      'https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272'),
-                  TextSpan(
-                    text: TIM_t(", "),
-                  ),
-                  webViewLink("《信息收集清单》",
-                      'https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e'),
-                  TextSpan(
-                    text: TIM_t("和"),
-                  ),
-                  webViewLink("《信息共享清单》",
-                      'https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246'),
-                  TextSpan(
-                      text: TIM_t("并仔细阅读，如您同意以上内容，请点击“同意并继续”，开始使用我们的产品与服务！")),
                 ]),
             overflow: TextOverflow.clip,
           ),
@@ -209,7 +201,7 @@ class _LoginFormState extends State<LoginForm> {
                       Radius.circular(24),
                     ),
                   ),
-                  child: Text(TIM_t("同意并继续"),
+                  child: Text("同意并继续",
                       style:
                           const TextStyle(color: Colors.white, fontSize: 16))),
               onPressed: () {
@@ -218,7 +210,7 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             CupertinoDialogAction(
-              child: Text(TIM_t("不同意并退出"),
+              child: Text("不同意并退出",
                   style: const TextStyle(color: Colors.grey, fontSize: 16)),
               isDestructiveAction: true,
               onPressed: () {
@@ -237,40 +229,21 @@ class _LoginFormState extends State<LoginForm> {
 
   userLogin() async {
     if (userID.trim() == '') {
-      ToastUtils.toast(TIM_t("请输入用户名"));
+      ToastUtils.toast("请输入用户名");
       return;
     }
 
-    String key = IMDemoConfig.key;
-    int sdkAppId = IMDemoConfig.sdkappid;
-    if (key == "") {
-      ToastUtils.toast(TIM_t("请在环境变量中写入key"));
-      return;
-    }
-    GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
-      sdkappid: sdkAppId,
-      key: key,
-    );
+    String userSig = "123";
 
-    String userSig =
-        generateTestUserSig.genSig(identifier: userID, expire: 99999);
-
-    await TUICallKit.instance.login(sdkAppId, userID, userSig);
-
-    var data = await coreInstance.login(
+    /* var data = await coreInstance.login(
       userID: userID,
       userSig: userSig,
     );
     if (data.code != 0) {
       final option1 = data.desc;
-      ToastUtils.toast(
-          TIM_t_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
+      ToastUtils.toast("登录失败{{option1}}");
       return;
-    }
-
-    // Initialize the poll plug-in
-    TencentCloudChatVotePlugin.initPlugin();
-
+    } */
     directToHomePage();
   }
 
@@ -311,7 +284,7 @@ class _LoginFormState extends State<LoginForm> {
                       padding:
                           EdgeInsets.only(top: CommonUtils.adaptFontSize(34)),
                       child: Text(
-                        TIM_t("用户名"),
+                        "用户名",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: CommonUtils.adaptFontSize(34),
@@ -323,7 +296,7 @@ class _LoginFormState extends State<LoginForm> {
                       decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.only(left: CommonUtils.adaptWidth(14)),
-                        hintText: TIM_t("请输入用户名"),
+                        hintText: "请输入用户名",
                         hintStyle:
                             TextStyle(fontSize: CommonUtils.adaptFontSize(32)),
                         //
@@ -343,7 +316,7 @@ class _LoginFormState extends State<LoginForm> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              child: Text(TIM_t("登录")),
+                              child: Text("登录"),
                               onPressed: userLogin,
                             ),
                           )

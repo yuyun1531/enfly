@@ -1,7 +1,5 @@
-import 'dart:ui';
-
+import 'package:enfly/theme/ui_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 enum ThemeType { solemn, brisk, bright, fantasy }
 
@@ -11,20 +9,20 @@ class DefTheme {
         .firstWhere((e) => e.toString() == str, orElse: () => ThemeType.brisk);
   }
 
-  static final Map<ThemeType, TUITheme> defaultTheme = {
-    ThemeType.solemn: const TUITheme(
+  static final Map<ThemeType, UITheme> defaultTheme = {
+    ThemeType.solemn: const UITheme(
       primaryColor: Color(0xFF00449E),
       lightPrimaryColor: Color(0xFF3371CD),
     ),
-    ThemeType.brisk: const TUITheme(
+    ThemeType.brisk: const UITheme(
       primaryColor: Color(0xFF147AFF),
       lightPrimaryColor: Color(0xFFC0E1FF),
     ),
-    ThemeType.bright: const TUITheme(
+    ThemeType.bright: const UITheme(
       primaryColor: Color(0xFFF38787),
       lightPrimaryColor: Color(0xFFFAE1B6),
     ),
-    ThemeType.fantasy: const TUITheme(
+    ThemeType.fantasy: const UITheme(
       primaryColor: Color(0xFF8783F0),
       lightPrimaryColor: Color(0xFFAEB6F4),
     ),

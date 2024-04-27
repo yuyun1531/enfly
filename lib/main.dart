@@ -1,5 +1,8 @@
 import 'package:enfly/pages/home_page.dart';
+import 'package:enfly/pages/login.dart';
+import 'package:enfly/provider/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'pages/chat.dart';
 
 class VoiceInputChatPage extends StatelessWidget {
@@ -65,5 +68,10 @@ class ChatBubble extends StatelessWidget {
 }
 
 void main() {
-  runApp(HomePage());
+  runApp(ChangeNotifierProvider<DefaultThemeData>(
+    create: (_) => DefaultThemeData(),
+    // Will throw a ProviderNotFoundError, because `context` is associated
+    // to the widget that is the parent of `Provider<Example>`
+    child: const HomePage(),
+  ));
 }
