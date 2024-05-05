@@ -25,7 +25,7 @@ class TTSUtil {
 
   Future speak(String text) async {
     /// 设置语言
-    await flutterTts.setLanguage("flutter_tts");
+    await flutterTts.setLanguage("en-US");
 
     /// 设置音量
     await flutterTts.setVolume(1.0);
