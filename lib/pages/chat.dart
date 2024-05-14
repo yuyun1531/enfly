@@ -48,6 +48,8 @@ class ChatBody extends StatelessWidget {
 }
 
 class VoiceInputButton extends StatefulWidget {
+  const VoiceInputButton({super.key});
+
   @override
   _VoiceInputButtonState createState() => _VoiceInputButtonState();
 }
