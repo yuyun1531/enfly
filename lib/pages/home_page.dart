@@ -1,6 +1,7 @@
 import 'package:enfly/pages/chat.dart';
 import 'package:enfly/pages/login.dart';
 import 'package:enfly/provider/enfly_page.dart';
+import 'package:enfly/theme/ui_theme.dart';
 import 'package:flutter/material.dart';
 
 /// 首页
@@ -28,6 +29,10 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: '英飞',
+      theme: UITheme(
+        primaryColor: Colors.blue,
+      ),
       home: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
